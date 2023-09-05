@@ -1,0 +1,11 @@
+# Create Reference Table
+SELECT create_reference_table('test.reff_date');
+
+
+# Create Distributed Table
+select create_distributed_table('test.table_a','city');
+SELECT create_distributed_table('test.table_b', 'city', colocate_with => 'test.table_a');
+
+# Make the table columnar 
+SELECT alter_table_set_access_method('test.table_a', 'columnar');
+SELECT alter_table_set_access_method('test.table_b', 'columnar');

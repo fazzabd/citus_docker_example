@@ -1,0 +1,19 @@
+
+
+-- RUN IN ALL node (citus_master, worker_1, worker_2)
+-- create role and database
+psql postgres://postgres@localhost:5432?sslmode=disable <<EOQ
+  CREATE ROLE citus WITH LOGIN IN ROLE pg_monitor;
+  CREATE DATABASE citus WITH OWNER citus;
+EOQ
+psql postgres://postgres@localhost:5432/citus?sslmode=disable <<EOQ
+  CREATE EXTENSION IF NOT EXISTS "citus";
+  CREATE EXTENSION IF NOT EXISTS "hll";
+  CREATE EXTENSION IF NOT EXISTS "topn";
+EOQ
+
+-- add worker node at master node
+SELECT * from master_add_node('node_name', 5432);
+
+-- Make sure worker node added to master
+SELECT * FROM master_get_active_worker_nodes();
