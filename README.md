@@ -1,5 +1,5 @@
 # citus_docker_example
-This is an example of how to implement Citus at docker, using yaml file to set the configuration
+This is an example of how to implement Citus local cluster at docker, using yaml file to set the configuration
 
 Run command :
 
